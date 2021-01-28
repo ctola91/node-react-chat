@@ -6,7 +6,7 @@ const users = new Users();
 
 io.on('connection', (client) => {
 
-    client.on('goChat', (data, callback) => {
+    client.on('enterChat', (data, callback) => {
 
 
         if (!data.name || !data.chat) {
