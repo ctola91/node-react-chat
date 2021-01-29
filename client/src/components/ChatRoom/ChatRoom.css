@@ -1,0 +1,51 @@
+.sidenav {
+    transform: translateX(0);
+    width: 200px;
+}
+.chat-container {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+}
+.messages-container {
+    height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+.chat-image {
+    width: 45px;
+    display: inline-block;
+    margin: 0 10px;
+}
+.chat-image img {
+    width: 45px;
+    border-radius: 100%;
+}
+.messages-list li {
+    /* height: 60px; */
+    margin-bottom: 10px;
+}
+.messages-list span {
+    padding: 10px;
+    border-radius: 10px;
+}
+.messages-list span.admin {
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+.owner-container {
+    display: flex;
+    justify-content: flex-end;
+}
+.guest-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+@media screen and (max-width: 550px) {
+    .sidenav {
+        width: 100px;
+    }
+    .chat-container {
+        margin-left: 100px;
+        width: calc(100% - 100px);
+    }
+}

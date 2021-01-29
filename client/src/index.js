@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import AppRoutes from "./routes";
 import reportWebVitals from './reportWebVitals';
-
+            
 import './index.css';
 
 const rootElement = document.getElementById("root");

@@ -14,10 +14,18 @@ const Home = () => {
     }
 
     return (
-        <div className="home-container">
-            <input type="text" placeholder="Room Chat" value={roomName} onChange={handleRoomNameChange} className="text-input-field" />
-            <input type="text" placeholder="Name" value={userName} onChange={handleUserNameChange} className="text-input-field" />
-            <Link to={`/${roomName}?name=${userName}`} className="enter-room-button">Join Room</Link>
+        <div className="row">
+            <div className="col s12 m6 offset-m3">
+                <div className="card">
+                    <div className="card-content">
+                        <input type="text" placeholder="Room Chat" value={roomName} onChange={handleRoomNameChange} className="text-input-field" />
+                        <input type="text" placeholder="Name" value={userName} onChange={handleUserNameChange} className="text-input-field" />
+                    </div>
+                    <div className="card-action">
+                        <Link to={`/${roomName}?name=${userName}`} className="btn">Join Room</Link>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 };
