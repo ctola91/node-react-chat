@@ -1,5 +1,5 @@
 const { io } = require('../server');
-const { Users } = require('../classes/Users');
+const Users = require('../classes/Users');
 const { createMessage } = require('../utils/utils');
 
 const users = new Users();
@@ -9,21 +9,20 @@ io.on('connection', (client) => {
     client.on('enterChat', (data, callback) => {
 
 
-        if (!data.name || !data.chat) {
+        if (!data.name || !data.chatRoom) {
             return callback({
                 error: true,
-                message: 'El nombre/chat es necesario'
+                message: 'El nombre/chatRoom es necesario'
             });
         }
 
-        client.join(data.chat);
+        client.join(data.chatRoom);
+        users.addPerson(client.id, data.name, data.chatRoom);
 
-        users.addPerson(client.id, data.name, data.chat);
+        client.broadcast.to(data.chatRoom).emit('peopleList', users.getPeopleByChatRoom(data.chatRoom));
+        client.broadcast.to(data.chatRoom).emit('createMessage', createMessage('Administrador', `${ data.name } se unió`));
 
-        client.broadcast.to(data.chat).emit('peopleList', users.getPeopleByChat(data.chat));
-        client.broadcast.to(data.chat).emit('createMessage', createMessage('Administrador', `${ data.name } se unió`));
-
-        callback(users.getPeopleByChat(data.chat));
+        callback(users.getPeopleByChatRoom(data.chatRoom));
 
     });
 
@@ -32,18 +31,18 @@ io.on('connection', (client) => {
         let person = users.getPerson(client.id);
 
         let message = createMessage(person.name, data.message);
-        client.broadcast.to(person.chat).emit('createMessage', message);
+        client.broadcast.to(person.chatRoom).emit('createMessage', message);
 
         callback(message);
     });
 
 
     client.on('disconnect', () => {
-
+        console.log(client.id);
         let deletedPerson = users.deletePerson(client.id);
-
-        client.broadcast.to(deletedPerson.chat).emit('createMessage', createMessage('Administrador', `${ deletedPerson.name } salió`));
-        client.broadcast.to(deletedPerson.chat).emit('peopleList', users.getPeopleByChat(deletedPerson.chat));
+        console.log(deletedPerson);
+        client.broadcast.to(deletedPerson.chatRoom).emit('createMessage', createMessage('Administrador', `${ deletedPerson.name } salió`));
+        client.broadcast.to(deletedPerson.chatRoom).emit('peopleList', users.getPeopleByChatRoom(deletedPerson.chatRoom));
 
 
     });

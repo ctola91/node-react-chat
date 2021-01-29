@@ -3,8 +3,8 @@ class Users {
         this.people = [];
     }
 
-    addPerson(id, name, chat) {
-        let person = { id, name, chat };
+    addPerson(id, name, chatRoom) {
+        let person = { id, name, chatRoom };
         this.people.push(person);
         return this.people;
     }
@@ -18,8 +18,8 @@ class Users {
         return this.people;
     }
 
-    getPeopleByChat(chat) {
-        let peopleOnChat = this.people.filter(person => person.chat === chat);
+    getPeopleByChatRoom(chatRoom) {
+        let peopleOnChat = this.people.filter(person => person.chatRoom === chatRoom);
         return peopleOnChat;
     }
 
@@ -30,6 +30,4 @@ class Users {
     }
 }
 
-module.exports = {
-    Users
-}
+module.exports = Users;
